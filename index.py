@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from bottle import route, run, template
+import urllib.parse
 
 import warnings
 with warnings.catch_warnings():
@@ -105,7 +106,8 @@ def eval(name):
 
 @route('/dazai_akuta/<name>')
 def index(name):
-    res = eval(name)
+    res = eval(urllib.parse.urldecode(name)
+    print(res)
     return template('<b>{{name}}</b>', name=res)
 
 run(host='localhost', port=8080)

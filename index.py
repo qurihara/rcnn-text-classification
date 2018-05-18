@@ -106,8 +106,10 @@ def eval(name):
 
 @route('/dazai_akuta/<name>')
 def index(name):
-    res = eval(urllib.parse.unquote(name))
-    print(res)
-    return template('<b>{{name}}</b>', name=res)
+    txt = urllib.parse.unquote(name)
+    res = eval(txt)
+    print(txt)
+    mes = "dazai" if res == "0" else "akutagawa" 
+    return template('<b>{{name}}</b>', name=mes)
 
 run(host='localhost', port=8080)

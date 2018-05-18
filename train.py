@@ -29,7 +29,7 @@ def argument():
 
 # ファイルから1文字単位の列とラベルを取得
 def letter_list(fname):
-    with open(fname) as f:
+    with open(fname,'r',encoding="utf-8_sig") as f:
         for l in f:
             body = l[:-3]
             val = int(l[-2])
@@ -40,7 +40,7 @@ def letter_list_text(t):
     x = list(''.join(t.split()))
     x.append('</s>')
     return x
-# 
+#
 class Vocabulary:
     def __init__(self, fname):
         self.fname = fname
@@ -56,7 +56,7 @@ class Vocabulary:
         if id < len(self.i2l):
             return self.i2l[id]
         return '<unk>'
-            
+
     def append_letter(self, l):
         if l in self.l2i:
             return
@@ -67,20 +67,20 @@ class Vocabulary:
         self.append_letter('<unk>')
         self.append_letter('<s>')
         self.append_letter('</s>')
-        with open(self.fname) as f:
+        with open(self.fname,'r',encoding="utf-8_sig") as f:
             for line in f:
                 nline = line[:-3]
                 for l in nline:
                     self.append_letter(l)
 
     def save_vocab(self, filename):
-        with open(filename, 'w') as f:
+        with open(filename, 'w',encoding="utf-8_sig") as f:
             for l in self.i2l:
                 f.write(l + "\n")
     @staticmethod
     def load_from_file(filename):
         vocab = Vocabulary(None)
-        with open(filename) as f:
+        with open(filename,'r',encoding="utf-8_sig") as f:
             for l in f:
                 l = l[:-1]
                 vocab.append_letter(l)
@@ -99,7 +99,7 @@ def forward(src_batch, t, model, is_training, vocab, xp):
         return y, acc, loss
     else:
         return y
-        
+
 def train(args):
     if args.use_gpu:
         xp = cuda.cupy

@@ -12,6 +12,12 @@ from chainer import cuda
 import numpy as np
 from model import LetterClassifyer
 
+import warnings
+with warnings.catch_warnings():
+    warnings.filterwarnings("ignore",category=FutureWarning)
+    import h5py
+
+
 def argument():
     parser = argparse.ArgumentParser()
     parser.add_argument('mode')

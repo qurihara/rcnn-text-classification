@@ -106,7 +106,7 @@ def eval(name):
 
 @route('/dazai_akuta/<name>')
 def index(name):
-    res = eval(urllib.parse.urldecode(name)
+    res = eval(urllib.parse.urldecode(name))
     print(res)
     return template('<b>{{name}}</b>', name=res)
 

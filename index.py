@@ -18,6 +18,20 @@ from chainer import cuda
 import numpy as np
 from model import LetterClassifyer
 
+# ファイルから1文字単位の列とラベルを取得
+def letter_list(fname):
+    with open(fname,'r',encoding="utf-8_sig") as f:
+        for l in f:
+            body = l[:-3]
+            val = int(l[-2])
+            x = list(''.join(body.split()))
+            x.append('</s>')
+            yield x, val
+def letter_list_text(t):
+    x = list(''.join(t.split()))
+    x.append('</s>')
+    return x
+
 class Vocabulary:
     def __init__(self, fname):
         self.fname = fname
